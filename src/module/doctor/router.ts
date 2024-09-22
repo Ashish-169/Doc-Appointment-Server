@@ -18,3 +18,5 @@ doctor_route.post(
   "/add-appointment",
   DoctorController.addAppointmentController
 ); //User Controll
+
+doctor_route.post("/reschedule",DoctorController.rescheduleAppointmentController)
