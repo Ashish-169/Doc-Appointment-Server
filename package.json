@@ -4,9 +4,9 @@
   "description": "",
   "main": "./dist/index.js",
   "scripts": {
-    "dev": "nodemon",
-    "start": "node dist/index",
-    "build": "netlify deploy --prod",
+    "dev": "tsc-watch --onSuccess \"npm start\"",
+    "start": "node dist/index.js",
+    "build": "tsc-watch",
     "ts.check": "tsc --project tsconfig.json",
     "add-build": "git add dist"
   },
