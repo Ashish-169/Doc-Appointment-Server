@@ -6,10 +6,9 @@
   "scripts": {
     "dev": "nodemon",
     "start": "node dist/index",
-    "build": "rimraf dist && tsc",
+    "build": "netlify deploy --prod",
     "ts.check": "tsc --project tsconfig.json",
-    "add-build": "git add dist",
-    "builde": "netlify deploy --prod"
+    "add-build": "git add dist"
   },
   "keywords": [],
   "author": "",
