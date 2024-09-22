@@ -4,14 +4,12 @@ import { ObjectId } from "mongodb";
 
 class DoctorRepository {
   static getAllAppointmentRepository = async () => {
-    await client.connect();
+    await client.connect(); // Always call connect before operations
     const queryResult = await client
       .db("master")
       .collection("appointment")
       .find({})
       .toArray();
-
-    await client.close();
     return queryResult;
   };
 
@@ -24,46 +22,36 @@ class DoctorRepository {
         .db("master")
         .collection("appointment")
         .find(query)
-        .toArray(); // Convert cursor to an array
-
+        .toArray();
       return queryResult;
-    } finally {
-      await client.close(); // Ensure client is closed even on error
+    } catch (error) {
+      throw new Error(`Failed to retrieve user appointments: ${error}`);
     }
   };
 
   static deleteAppointmentRepository = async (id: string) => {
     console.log("Id: ", id);
-
     await client.connect();
     const query = { _id: new ObjectId(id) };
-
     const queryResult = await client
       .db("master")
       .collection("appointment")
       .deleteOne(query);
-
-    await client.close();
     return queryResult;
   };
 
   static addAppointmentRepository = async (details: any) => {
     await client.connect();
     console.log("Repo Details:", details);
-
-    const query = { details };
     const queryResult = await client
       .db("master")
       .collection("appointment")
-      .insertOne(query);
-
-    await client.close();
+      .insertOne({ details });
     return queryResult;
   };
 
   static registerUserRepository = async (userData: any) => {
     await client.connect();
-    // const query = { userData };
     console.log("UserData Repo: ", userData);
 
     const existUser = await client
@@ -84,7 +72,6 @@ class DoctorRepository {
       .collection("logindata")
       .insertOne(userData);
 
-    await client.close();
     return queryResult;
   };
 
@@ -106,8 +93,8 @@ class DoctorRepository {
       );
     }
 
-    await client.close();
     return queryResult;
   };
 }
+
 export default DoctorRepository;
