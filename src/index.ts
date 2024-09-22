@@ -6,6 +6,7 @@ import { doctor_route } from "./module/doctor/router";
 import { common_route } from "./common/common_route";
 import { initializeMongo } from "./config/database";
 import morgan from "morgan";
+import ServerlessHttp from "serverless-http";
 
 configDotenv();
 
@@ -27,3 +28,5 @@ server.listen(port, () => {
     `server running on port ${port} and url http://localhost:${port}/`
   );
 });
+
+module.exports.handle = ServerlessHttp(app);

@@ -1,5 +1,6 @@
 [build]
   functions = "src"
+  command = "npm run build" # Adjust if you have a build command
 
-[dev]
-  publish = "dist"
+[functions]
+  directory = "netlify-functions" # Directory for your functions
